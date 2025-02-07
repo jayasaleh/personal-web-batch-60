@@ -1,0 +1,123 @@
+@media screen and (max-width: 768px) {
+  .navbar li {
+    display: none;
+  }
+  .contact-me {
+    display: none;
+  }
+  .hamburger-bar-menu {
+    display: block;
+  }
+  .hamburger-nav:hover {
+    background-color: #f4701b;
+  }
+  .hamburger-nav .active {
+    background-color: #f4701b;
+    color: white;
+  }
+  .hamburger-nav {
+    flex-direction: column;
+    gap: 1px;
+  }
+  .hamburger-nav a {
+    width: 100%;
+    text-align: center;
+    background-color: #aaa;
+    text-decoration: none;
+    color: white;
+  }
+  .hamburger-nav a:hover {
+    background-color: #f4701b;
+    color: white;
+  }
+  .white-box {
+    width: 70%;
+    height: 600px;
+    flex-direction: column;
+    gap: 0px;
+  }
+  .welcome {
+    width: 100%;
+  }
+  .welcome p {
+    font-size: 13px;
+  }
+  .welcome .button {
+    margin-top: 20px;
+    justify-content: center;
+  }
+  .contact {
+    padding: 5px 20px;
+    font-size: 13px;
+  }
+  .download {
+    font-size: 15px;
+  }
+  .download img {
+    width: 15px;
+    height: 15px;
+  }
+  .sosial-media {
+    justify-content: center;
+  }
+  .sosial-media img {
+    width: 30px;
+    height: 30px;
+  }
+  .profile {
+    margin: auto;
+    width: 80%;
+    height: 200px;
+  }
+  .profile .name {
+    margin-top: 0;
+    font-size: 12px;
+  }
+  .job {
+    text-align: center;
+    font-size: 10px;
+  }
+  .active {
+    background-color: #f4701b;
+    color: white;
+  }
+  .form-contact-me {
+    width: 80%;
+  }
+  .form-contact-me button {
+    width: 80px;
+  }
+  .my-project h1 {
+    font-size: 22px;
+  }
+  .form-project {
+    width: 80%;
+    margin: auto;
+  }
+  .form-project form {
+    gap: 5px;
+  }
+  .form-project label {
+    font-size: 13px;
+  }
+  .date input {
+    width: 85%;
+  }
+  .content-detail-project p {
+    height: 30px;
+  }
+  .content-detail-project {
+    width: 50%;
+  }
+  .icon-tech {
+    gap: 10px;
+  }
+  .icon-tech img {
+    width: 20px;
+    height: 20px;
+  }
+  .button-detail-project button {
+    padding: 8px 25px;
+    font-size: 10px;
+  }
+}

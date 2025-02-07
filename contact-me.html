@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/media-screen.css" />
+    <link rel="icon" href="assets/img/icon.jpg" />
+    <title>Contact Me</title>
+  </head>
+  <body>
+    <nav>
+      <ul class="navbar">
+        <img src="assets/img/icon.jpg" alt="icon" />
+        <li><a href="index.html">Home</a></li>
+        <li><a href="my-project.html">My Project</a></li>
+      </ul>
+      <div class="contact-me">
+        <a href="" style="background-color: #f4701b">Contact Me</a>
+      </div>
+      <div class="hamburger-bar-menu">
+        <button onclick="openHamberger()" class="button-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="hamburger-nav" id="hamburger-nav">
+      <a href="index.html">Home</a>
+      <a href="my-project.html">My Project</a>
+      <a href="contact-me.html" class="active">Contact Me</a>
+    </div>
+    <div class="form-contact-me">
+      <form onsubmit="submitForm(event)">
+        <h2>Contact Me!</h2>
+
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" id="subject" required />
+
+        <label for="skill">Skill</label>
+        <select name="skill" id="skill" required>
+          <option value="">Select-Skill</option>
+          <option value="FrontEnd">FrontEnd</option>
+          <option value="BackEnd">BackEnd</option>
+        </select>
+
+        <label for="messege">Your Messege</label>
+        <textarea type="text" name="messege" id="messege"></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <script src="assets/js/contact-me.js"></script>
+      <script src="assets/js/hamburger-menu.js"></script>
+    </div>
+  </body>
+</html>

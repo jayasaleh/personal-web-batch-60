@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/media-screen.css" />
+  <link rel="icon" href="assets/img/icon.jpg">
+  <title>My Project</title>
+</head>
+<body>
+  <nav>
+    <ul class="navbar">
+      <img src="assets/img/icon.jpg" alt="icon">
+      <li><a href="index.html">Home</a></b></li>
+      <li><b><a href="my-project.html">My Project</a></b></li>
+    </ul>
+    <div class="contact-me">
+      <a href="contact-me.html">Contact Me</a>
+    </div>
+    <div class="hamburger-bar-menu">
+      <button onclick="openHamberger()" class="button-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="hamburger-nav" id="hamburger-nav">
+    <a href="index.html">Home</a>
+    <a href="my-project.html" class="active">My Project</a>
+    <a href="contact-me.html">Contact Me</a>
+  </div> 
+  <div class="my-project">
+
+    <h1>ADD TO MY PROJECT</h1>
+    <div class="form-project">
+      <form  onsubmit="submitFormProject(event)" >
+        <label for="projectName">Project Name</label>
+        <input type="text" id="projectName" required>
+        
+        <div class="date">
+            <div class="start">
+              <label for="startDate">Start date</label>
+              <input type="date" id="startDate" required>
+            </div>
+
+            <div class="end">
+              <label for="endDate">End Date</label>
+              <input type="date" id="endDate" required>
+            </div>
+
+        </div>
+      <label for="description">Description</label>
+      <textarea name="description" id="description" required></textarea>
+      <label for="">Technology</label>
+      
+      <div class="technology">
+        
+        <div class="checkbox">
+            <label><input type="checkbox" id="node"> Node JS</label>
+            <label><input type="checkbox" id="next"> Next JS</label>
+        </div>
+        
+        <div class="checkbox">
+            <label><input type="checkbox" id="react"> React JS</label>
+            <label><input type="checkbox" id="typeScript"> TypeScript</label>
+        </div>
+
+      </div>
+      <label for="image">Upload Image</label>
+      <input type="file" id="image">
+      
+      <button type="submit">Submit</button>
+      </form>
+    </div>
+
+  </div>
+  <div class="detail-project" id="contentProject">
+
+  <div  class="content-detail-project">
+    <img src="assets/img/profile.jpg" alt="img-project" class="project-img">
+    <h4>Project Name</h4>
+    <span>Durasi : 3 bulan</span>
+    <p style="font-size: 10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam eius odio officia, minus quam animi excepturi quo. Quo, consequuntur blanditiis. Sint illo reiciendis, fuga dicta ipsam vero laudantium velit earum?</p>
+      <div class="icon-tech">
+      <img src="assets/img/node.png" alt="icon">
+      <img src="assets/img/next.png" alt="icon">
+      <img src="assets/img/react.png" alt="icon">
+      <img src="assets/img/type.png" alt="icon">
+    </div>
+    <div class="button-detail-project">
+      <button class="edit-btn">Edit</button>
+      <button class="delete-btn">Delete</button>
+    </div>
+    
+  </div>
+  </div>
+  <script src="assets/js/my-project.js"></script>
+  <script src="assets/js/hamburger-menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/media-screen.css" />
+    <link rel="stylesheet" href="assets/css/testimonial.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"/>
+    <link rel="icon" href="assets/img/icon.jpg" />
+    <title>Testimonials</title>
+  </head>
+  <body>
+    <nav>
+      <ul class="navbar">
+        <img src="assets/img/icon.jpg" alt="icon" />
+        <li>
+          <b><a href="index.html">Home</a></b>
+        </li>
+        <li><a href="my-project.html">My Project</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+      </ul>
+      <div class="contact-me">
+        <a href="contact-me.html">Contact Me</a>
+      </div>
+      <div class="hamburger-bar-menu">
+        <button onclick="openHamberger()" class="button-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="hamburger-nav" id="hamburger-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="my-project.html">My Project</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact-me.html">Contact Me</a>
+    </div>
+  
+      <main class="testimonials">
+        <h1 class="text-center">My Testimonials</h1>
+        <h3 class="text-center">Rating by Star</h3>
+        <!-- STAR BUTTON -->
+        <div class="testimonial-star-button">
+          <button onclick="showAllTestimonials()" type="button">All</button>
+          <button onclick="filterTestimonialsByStar(1)" type="button">1★</button>
+          <button onclick="filterTestimonialByStar(2)" type="button">2★</button>
+          <button onclick="filterTestimonialByStar(3)" type="button">3★</button>
+          <button onclick="filterTestimonialByStar(4)" type="button">4★</button>
+          <button onclick="filterTestimonialByStar(5)" type="button">5★</button>
+        </div>
+        <div id="testimonialsContainer" class="testimonials-list">
+          <article>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-AdBcEzPxbj1X0-_pLH0biFWNcXRVV0AEZQ&s" alt="">
+           
+            <p style="color: #777;"><i>Keren Abiss!!</i></p>
+            <p style="text-align: right;">~ Karunia Leo</p>
+            <p style="text-align: right;">5★</p>
+          </article>
+        </div>
+      </main>
+    </main>
+    <script src="assets/js/hamburger-menu.js"></script>
+    <script src="assets/js/testimonials.js"></script>
+  </body>
+</html>
