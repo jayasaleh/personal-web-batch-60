@@ -1,0 +1,22 @@
+{
+  "name": "personal-web",
+  "version": "1.0.0",
+  "description": "My first personal-web",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayasaleh/personal-web-batch-60.git"
+  },
+  "author": "Jaya Saleh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayasaleh/personal-web-batch-60/issues"
+  },
+  "homepage": "https://github.com/jayasaleh/personal-web-batch-60#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
