@@ -1,0 +1,57 @@
+{{#> layout currentPage='my-project'}}
+
+  <div class="container mt-4">
+  <h1 class="text-center">My Project List</h1>
+  <div class="text-end">
+    <a class="btn text-end" id="btn-black" href="/create-project">Create Project</a> <br><br>
+  </div>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 p-2 g-4" id="contentProject" style="background-color: #f3f3f3;">
+      
+      <div class="col mb-2">
+        <div class="card h-100">
+          <img src="/img/profile.jpg" class="card-img-top" alt="Image" />
+          <div class="card-body">
+            <h5 class="card-title">Project Name</h5>
+            <p>Duration : 3 Month</p>
+            <p class="card-text">This is a description for the third card.</p>
+            <div class="iconTech">
+              <img src="/img/node.png" alt="icon" />
+              <img src="/img/next.png" alt="icon" />
+              <img src="/img/react.png" alt="icon" />
+              <img src="/img/type.png" alt="icon" />
+            </div>
+            <div class="btn-edit-delete">
+              <button>edit</button>
+              <button>delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#each blogProject }}
+      <div class="col mb-2">
+        <div class="card h-100">
+          <img src="{{this.image}}" class="card-img-top" alt="Image" />
+          <div class="card-body">
+            <h5 class="card-title">{{this.projectName}}</h5>
+            
+            <p>start date:{{formatDate this.startDate}}<br> end date:{{formatDate this.endDate}}</p>
+            <p>Duration: {{countTimeProjectEnd this.endDate this.startDate}}</p>
+            <p class="card-text">{{this.description}}</p>
+
+            <div class="iconTech">
+              <img src="/img/node.png" alt="icon" style="display:{{techValue (getIndex this.tech 0)}}; "/>
+              <img src="/img/next.png" alt="icon" style="display:{{techValue (getIndex this.tech 1)}}; "/>
+              <img src="/img/react.png" alt="icon" style=" display:{{techValue (getIndex this.tech 2)}}; "/>
+              <img src="/img/type.png" alt="icon" style="display:{{techValue (getIndex this.tech 3)}}; "/>
+              
+            </div>
+            <div class="btn-edit-delete">
+              <button>edit</button>
+              <button>delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+{{/layout}}

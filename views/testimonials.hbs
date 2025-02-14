@@ -1,0 +1,28 @@
+{{#> layout currentPage='testimonials'}}  
+      <main class="testimonials">
+        <h1 class="text-center mt-2">My Testimonials</h1>
+        <h4 class="text-center">Rating by Star</h4>
+        <!-- STAR BUTTON -->
+        <div class="testimonial-star-button" id="testimonialStarButton">
+          <button onclick="showAllTestimonials()" type="button">All</button>
+          <button onclick="filterTestimonialsByStar(1)" type="button">1★</button>
+          <button onclick="filterTestimonialsByStar(2)" type="button">2★</button>
+          <button onclick="filterTestimonialsByStar(3)" type="button">3★</button>
+          <button onclick="filterTestimonialsByStar(4)" type="button">4★</button>
+          <button onclick="filterTestimonialsByStar(5)" type="button">5★</button>
+        </div>
+        <div id="testimonialsContainer" class="testimonials-list">
+          <article>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-AdBcEzPxbj1X0-_pLH0biFWNcXRVV0AEZQ&s" alt="">
+           
+            <p style="color: #777;"><i>Keren Abiss!!</i></p>
+            <p style="text-align: right;">~ Karunia Leo</p>
+            <p style="text-align: right;">5★</p>
+          </article>
+        </div>
+      </main>
+    </main>
+    <!-- <script src="/js/hamburger-menu.js"></script> -->
+     
+    <script src="/js/testimonials.js"></script>
+{{/layout}}

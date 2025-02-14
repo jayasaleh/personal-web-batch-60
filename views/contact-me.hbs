@@ -1,0 +1,54 @@
+{{#> layout currentPage='contact-me'}}
+    <div class="container mt-3" style="width: 70%">
+      <form onsubmit="submitForm(event)">
+        <h2 class="text-center">Contact Me!</h2>
+        
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          required
+        />
+
+        <label for="email" class="form-label">Email</label>
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          id="email"
+          required
+        />
+
+        <label for="subject" class="form-label">Subject</label>
+        <input
+          class="form-control"
+          type="text"
+          name="subject"
+          id="subject"
+          required
+        />
+
+        <label for="skill" class="form-label">Skill</label>
+        <select class="form-select" name="skill" id="skill" required>
+          <option selected>Select-Skill</option>
+          <option value="FrontEnd">FrontEnd</option>
+          <option value="BackEnd">BackEnd</option>
+        </select>
+
+        <label class="form-label" for="messege">Your Messege</label>
+        <textarea
+          class="form-control"
+          type="text"
+          name="messege"
+          id="messege"
+          rows="3"
+        ></textarea>
+        <div class="d-flex justify-content-end mt-3">
+          <button type="submit" class="submit-contact-me">Submit</button>
+        </div>
+      </form>
+
+      <script src="/js/contact-me.js"></script>
+{{/layout}}

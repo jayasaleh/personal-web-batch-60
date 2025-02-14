@@ -37,6 +37,7 @@ body {
   filter: grayscale(0%);
 }
 .actived {
+  color: orangered !important;
   font-weight: 700 !important;
 }
 .profile {
