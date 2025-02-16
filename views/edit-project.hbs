@@ -1,0 +1,131 @@
+{{#> layout currentPage='Edit Project'}}
+    <div class="container">
+      <h1 class="text-center mt-3">EDIT TO MY PROJECT</h1>
+      <div class="form-input-my-project">
+        <form action="/edit-project/{{id}}?_method=PATCH" method="post">
+          <div class="mb-3">
+          
+            <label for="projectName" class="form-label">Project Name</label>
+            <input name="projectName" id="projectName" type="text" class="form-control" value="{{blogProject.projectName}}" />
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="startDate" class="form-label">Start Date</label>
+              <input name="startDate" id="startDate" type="date" class="form-control" value="{{formatDateStartEnd blogProject.startDate}}" /> 
+            </div>
+            <div class="col-md-6">
+              <label for="endDate" class="form-label">End Date</label>
+              <input name="endDate" id="endDate" type="date" class="form-control" value="{{formatDateStartEnd blogProject.endDate}}" />
+            </div>
+          </div>
+          <div class="mt-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              class="form-control"
+              placeholder="Leave a comment here"
+              rows="3"
+            >{{blogProject.description}}</textarea>
+          </div>
+          <br />
+          <label
+            for="exampleInputPassword1"
+            class="form-label"
+          >Technology</label>
+          <div class="mb-3 form-check" style="margin-left: -20px">
+            <div class="form-check form-check-inline me-5">
+              <input name="node" class="form-check-input" type="checkbox" id="node" 
+              {{#if (equal (getIndex blogProject.tech 0)"on")}}
+              checked
+              {{/if}}
+              />
+              <label class="form-check-label" for="node" >Node JS</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input name="next" class="form-check-input" type="checkbox" id="next" 
+              {{#if (equal (getIndex blogProject.tech 1)"on")}}
+              checked
+              {{/if}}
+              />
+              <label class="form-check-label" for="next" >Next JS</label>
+            </div>
+            <br />
+            <div class="form-check form-check-inline me-5">
+              <input name="react" class="form-check-input" type="checkbox" id="react" 
+              {{#if (equal (getIndex blogProject.tech 1)"on")}}
+              checked
+              {{/if}}
+               />
+              <label class="form-check-label" for="react" >React JS</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input name="typeScript" class="form-check-input" type="checkbox" id="typeScript" 
+              {{#if (equal (getIndex blogProject.tech 1)"on")}}
+              checked
+              {{/if}} />
+              <label
+                class="form-check-label"
+                for="typeScript"
+              >TypeScript</label>
+            </div>
+          </div>
+
+          <label class="form-label">Upload Image</label>
+          <div class="input-group mb-3">
+            <label
+              class="form-control input-group-text justify-content-between rounded-2"
+              for="image"
+              style="padding: 0 10px 0 0; cursor: pointer"
+            >
+              <span id="spanChoose">Choose</span>
+              <img
+                src="/img/clip.png"
+                alt="clip"
+                style="width: 20px; height: 20px; margin-left: -20px"
+              />
+            </label>
+            <input name="image" type="file" class="form-control" id="image" hidden />
+          </div>
+
+          <div align="right">
+            <button
+              type="submit"
+              class="rounded-2 btn"
+              style="background-color: #000000; color: white"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+      <!-- <div class="content-detail-project">
+        <img
+          src="/img/profile.jpg"
+          alt="img-project"
+          class="project-img"
+        />
+        <h4>Project Name</h4>
+        <span>Durasi : 3 bulan</span>
+        <p style="font-size: 10px">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+          eius odio officia, minus quam animi excepturi quo. Quo, consequuntur
+          blanditiis. Sint illo reiciendis, fuga dicta ipsam vero laudantium
+          velit earum?
+        </p>
+        <div class="icon-tech">
+          <img src="/img/node.png" alt="icon" />
+          <img src="/img/next.png" alt="icon" />
+          <img src="/img/react.png" alt="icon" />
+          <img src="/img/type.png" alt="icon" />
+        </div>
+        <div class="button-detail-project">
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div> -->
+    </div>
+    <script src="/js/my-project.js"></script>
+{{/layout}}

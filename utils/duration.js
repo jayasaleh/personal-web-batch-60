@@ -5,15 +5,18 @@ function countTimeProjectEnd(end, start) {
   //   return diffInYear + (diffInYear === 1 ? "Year Ago" : "Years Ago");
   // }
   let diffInMonth = Math.floor(distance / (30 * 24 * 60 * 60 * 1000));
-  let leftdays =
-    (distance % (30 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000);
+
+  //menghitung sisa hari dari bulan
+  let leftdays = Math.floor(
+    (distance % (30 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)
+  );
   if (diffInMonth > 0) {
     if (leftdays > 0) {
       return (
         diffInMonth +
-        (diffInMonth === 1 ? " Month Ago " : " Months Ago ") +
+        (diffInMonth === 1 ? " Month " : " Months ") +
         leftdays +
-        (leftdays === 1 ? " Day Ago" : " Days Ago")
+        (leftdays === 1 ? " Day Ago " : " Days Ago ")
       );
     }
     return diffInMonth + (diffInMonth === 1 ? " Month Ago" : " Months Ago");
@@ -26,25 +29,39 @@ function countTimeProjectEnd(end, start) {
     return "less than 1 day";
   }
 }
+function formatDateStartEnd(dateString) {
+  let date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return ""; // Jika tanggal tidak valid, kembalikan string kosong
+  }
+
+  let year = date.getFullYear();
+  let month = String(date.getMonth() + 1).padStart(2, "0"); // Tambahkan 0 jika perlu
+  let day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
 function formatDate(a) {
   // Konversi ke objek Date
   let date = new Date(a);
 
   // Array nama hari dan bulan
-  let hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  let hari = ["Sun", "Mon", "Tue", "Wed", "Thus", "Fri", "Sat"];
   let bulan = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
     "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Des",
   ];
 
   // Ambil komponen tanggal
@@ -67,5 +84,6 @@ function techValue(check) {
 module.exports = {
   countTimeProjectEnd,
   techValue,
+  formatDateStartEnd,
   formatDate,
 };

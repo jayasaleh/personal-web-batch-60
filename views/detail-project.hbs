@@ -1,0 +1,18 @@
+{{#> layout currentPage='my-project'}}
+<div class="container mt-3">
+  <div style="margin:10px auto; width:700px">
+    <h1>{{blogProject.projectName}}</h1>
+    <p>Start: {{formatDate blogProject.startDate}} <br>End : {{formatDate blogProject.endDate}}</p>
+    <p>Duration: {{countTimeProjectEnd blogProject.endDate blogProject.startDate}}</p>
+    <h6>Technology</h6>
+    <div class="iconTech">
+      <img src="/img/node.png" alt="icon" style="display:{{techValue (getIndex blogProject.tech 0)}}; "/>
+      <img src="/img/next.png" alt="icon" style="display:{{techValue (getIndex blogProject.tech 1)}}; "/>
+      <img src="/img/react.png" alt="icon" style=" display:{{techValue (getIndex blogProject.tech 2)}}; "/>
+      <img src="/img/type.png" alt="icon" style="display:{{techValue (getIndex blogProject.tech 3)}}; "/>
+    </div>
+    <img src="{{blogProject.image}}" alt="project image" style="width: 700px; height:500px; object-fit:cover; margin:20px 0;">
+    <p>{{blogProject.description}}</p>
+  </div>
+</div>
+{{/layout}}
