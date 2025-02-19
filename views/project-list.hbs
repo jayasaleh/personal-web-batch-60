@@ -1,18 +1,18 @@
-{{#> layout currentPage='my-project'}}
+{{#> layout currentPage='Project List'}}
 
   <div class="container mt-4">
   <h1 class="text-center">My Project List</h1>
   <div class="text-end">
-    <a class="btn text-end" id="btn-black" href="/create-project">Create Project</a> <br><br>
+    <a class="btn text-end" id="btn-black" href="/create-project">Create Project</a> 
   </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 p-2 g-4" id="contentProject" style="background-color: #f3f3f3;">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 mt-3 p-2 g-4" id="contentProject" style="background-color: #f3f3f3;">
       {{#each blogProject }}
       
       <div class="col mb-2">
         <div class="card h-100">
           <img src="{{this.image}}" class="card-img-top" alt="Image" />
           <div class="card-body">
-            <a href="/detail-project/{{@index}}" style="text-decoration:none;">
+            <a href="/detail-project/{{this.id}}" style="text-decoration:none;">
               <h5 class="card-title">{{this.projectName}}</h5>
             </a>
             <p style="font-weight:500; font-size:15px;">Start Date: {{formatDate this.startDate}}<br> End Date: {{formatDate this.endDate}}</p>
@@ -20,16 +20,15 @@
             <p class="card-text">{{this.description}}</p>
 
             <div class="iconTech">
-              <img src="/img/node.png" alt="icon" style="display:{{techValue (getIndex this.tech 0)}}; "/>
-              <img src="/img/next.png" alt="icon" style="display:{{techValue (getIndex this.tech 1)}}; "/>
-              <img src="/img/react.png" alt="icon" style=" display:{{techValue (getIndex this.tech 2)}}; "/>
-              <img src="/img/type.png" alt="icon" style="display:{{techValue (getIndex this.tech 3)}}; "/>
-              
+              <img src="/img/node.png" alt="icon" style="display:{{techValue (getIndex this.technologys 0)}}; "/>
+              <img src="/img/next.png" alt="icon" style="display:{{techValue (getIndex this.technologys 1)}}; "/>
+              <img src="/img/react.png" alt="icon" style=" display:{{techValue (getIndex this.technologys 2)}}; "/>
+              <img src="/img/type.png" alt="icon" style="display:{{techValue (getIndex this.technologys 3)}}; "/>
             </div>
-            
-              <a href="/edit-project/{{@index}}" class="btn btn-primary">edit</a href="/edit-project/{{@index}}">
-              <form action="/my-project/{{@index}}?_method=DELETE" method="post" style="display: inline;">
-               <button onclick="return confirm('Are you sure want to delete')" class="btn btn-danger" type="submit">delete</button>
+            <p style="font-size: 10px; text-align:end;"><i>last edited: {{formatDate this.updatedAt}} </i></p>
+              <a href="/edit-project/{{this.id}}" class="btn btn-primary" style="width: 45%;">edit</a href="/edit-project/{{@index}}">
+              <form action="/my-project/{{this.id}}?_method=DELETE" method="post" style=" display: inline; ">
+               <button onclick="return confirm('Are you sure want to delete')" class="btn btn-danger" type="submit" style="width: 50%;">delete</button>
               </form>
             
           </div>

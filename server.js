@@ -10,15 +10,16 @@ const {
   formatDate,
   formatDateStartEnd,
 } = require("./utils/duration");
+const { updateProject } = require("./controllers/controller-v1");
+
 const {
   renderProject,
-  createProject,
-  deleteProject,
-  updateProject,
-  renderEditProject,
   renderDetailProject,
-} = require("./controllers/controller-v1");
-
+  renderCreateProject,
+  renderEditProject,
+  deleteProject,
+  createProject,
+} = require("./controllers/controller-v2");
 const port = 3000;
 //set penggunaan value dari input
 // supaya bisa menghandle data yang dikirimkan dari form
@@ -53,9 +54,7 @@ app.get("/", (req, res) => {
 //routing project list
 app.get("/my-project", renderProject);
 //routing create project
-app.get("/create-project", (req, res) => {
-  res.render("my-project");
-});
+app.get("/create-project", renderCreateProject);
 //routing detail project
 app.get("/detail-project/:id", renderDetailProject);
 //routing contact
@@ -68,7 +67,9 @@ app.get("/testimonials", (req, res) => {
 });
 //render editblog
 app.get("/edit-project/:id", renderEditProject);
-
+app.get("*", (req, res) => {
+  res.render("page-404");
+});
 //submit create project
 app.post("/create-project", createProject);
 app.patch("/edit-project/:id", updateProject);

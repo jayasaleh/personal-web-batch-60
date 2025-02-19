@@ -2,7 +2,7 @@
     <div class="container">
       <h1 class="text-center mt-3">EDIT TO MY PROJECT</h1>
       <div class="form-input-my-project">
-        <form action="/edit-project/{{id}}?_method=PATCH" method="post">
+        <form action="/edit-project/{{blogProject.id}}?_method=PATCH" method="post">
           <div class="mb-3">
           
             <label for="projectName" class="form-label">Project Name</label>
@@ -36,7 +36,7 @@
           <div class="mb-3 form-check" style="margin-left: -20px">
             <div class="form-check form-check-inline me-5">
               <input name="node" class="form-check-input" type="checkbox" id="node" 
-              {{#if (equal (getIndex blogProject.tech 0)"on")}}
+              {{#if (equal (getIndex blogProject.technologys 0)"on")}}
               checked
               {{/if}}
               />
@@ -44,7 +44,7 @@
             </div>
             <div class="form-check form-check-inline">
               <input name="next" class="form-check-input" type="checkbox" id="next" 
-              {{#if (equal (getIndex blogProject.tech 1)"on")}}
+              {{#if (equal (getIndex blogProject.technologys 1)"on")}}
               checked
               {{/if}}
               />
@@ -53,7 +53,7 @@
             <br />
             <div class="form-check form-check-inline me-5">
               <input name="react" class="form-check-input" type="checkbox" id="react" 
-              {{#if (equal (getIndex blogProject.tech 1)"on")}}
+              {{#if (equal (getIndex blogProject.technologys 2)"on")}}
               checked
               {{/if}}
                />
@@ -61,7 +61,7 @@
             </div>
             <div class="form-check form-check-inline">
               <input name="typeScript" class="form-check-input" type="checkbox" id="typeScript" 
-              {{#if (equal (getIndex blogProject.tech 1)"on")}}
+              {{#if (equal (getIndex blogProject.technologys 3)"on")}}
               checked
               {{/if}} />
               <label
@@ -91,10 +91,9 @@
           <div align="right">
             <button
               type="submit"
-              class="rounded-2 btn"
-              style="background-color: #000000; color: white"
+              class="rounded-2 btn btn-primary"
             >
-              Submit
+              Save
             </button>
           </div>
         </form>
