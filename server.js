@@ -3,6 +3,8 @@ const app = express(); //express dalam bentuk function supaya bisa mengakses met
 const hbs = require("hbs");
 const path = require("path");
 const methodOverride = require("method-override");
+const flash = require("express-flash");
+const session = require("express-session");
 
 const {
   countTimeProjectEnd,
@@ -10,15 +12,25 @@ const {
   formatDate,
   formatDateStartEnd,
 } = require("./utils/duration");
-const { updateProject } = require("./controllers/controller-v1");
+// const { updateProject } = require("./controllers/controller-v1");
 
 const {
+  authLogin,
+  authRegister,
+  authLogout,
+  renderHome,
+  renderLogin,
+  renderRegister,
   renderProject,
   renderDetailProject,
   renderCreateProject,
   renderEditProject,
+  renderContactMe,
+  renderTestimonials,
+  renderError,
   deleteProject,
   createProject,
+  updateProject,
 } = require("./controllers/controller-v2");
 const port = 3000;
 //set penggunaan value dari input
@@ -28,7 +40,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // menjadikan folder 'assets sebagai penyedia file statis'
 app.use(express.static("assets"));
+app.use(flash());
+app.use(
+  session({
+    name: "my-session",
+    secret: "ewr234xfd",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.set("views", path.join(__dirname, "./views"));
+
 hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 hbs.registerHelper("equal", (a, b) => {
   return a === b;
@@ -48,9 +70,12 @@ app.set("view engine", "hbs");
 // app.set("views", "./views");
 
 //routing home
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.get("/login", renderLogin);
+app.get("/register", renderRegister);
+app.post("/login", authLogin);
+app.post("/register", authRegister);
+app.get("/", renderHome);
+app.get("/logout", authLogout);
 //routing project list
 app.get("/my-project", renderProject);
 //routing create project
@@ -58,18 +83,12 @@ app.get("/create-project", renderCreateProject);
 //routing detail project
 app.get("/detail-project/:id", renderDetailProject);
 //routing contact
-app.get("/contact-me", (req, res) => {
-  res.render("contact-me");
-});
+app.get("/contact-me", renderContactMe);
 //routing testimonial
-app.get("/testimonials", (req, res) => {
-  res.render("testimonials");
-});
+app.get("/testimonials", renderTestimonials);
 //render editblog
 app.get("/edit-project/:id", renderEditProject);
-app.get("*", (req, res) => {
-  res.render("page-404");
-});
+app.get("*", renderError);
 //submit create project
 app.post("/create-project", createProject);
 app.patch("/edit-project/:id", updateProject);

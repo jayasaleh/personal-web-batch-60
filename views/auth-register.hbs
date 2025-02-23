@@ -1,0 +1,40 @@
+{{#> layout currentPage='Register'}}
+    <div class="container">
+      <h1 class="text-center mt-3">Register</h1>
+      <div class="form-input-register">
+        <form action="/register" method="post">
+          <div class="mb-4 mt-4">
+            <input name="name" id="name" type="text" class="form-control" placeholder="Name" />
+          </div>
+          <div class="mb-4">
+            <input name="email" id="email" type="text" class="form-control" placeholder="Email" />
+          </div>
+          <div class="mb-4">
+            <input name="password" id="password" type="password" class="form-control" placeholder="Password" />
+          </div>
+          <div class="mb-4">
+            <input name="confirmPassword" id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"/>
+          </div>
+          
+          {{#if messages.error}}
+          <br>
+          <div class="alert alert-danger" role="alert">
+             {{messages.error}}
+          </div>
+          {{/if}}
+          <div align="center">
+            <button
+              type="submit"
+              class="rounded-2 btn btn-primary"
+            >
+              Register
+            </button>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+    </div>
+    <script src="/js/my-project.js"></script>
+{{/layout}}

@@ -38,7 +38,11 @@
           {{/if}}" href="/testimonials">Testimonials</a>
         </li>
       </ul>
-      <div class="d-flex">
+      <div class="d-flex align-items-center">
+        {{#if user}}
+        <span class="me-3 text-center">Selamat datang {{user.name}}</span>
+        <a href="/logout">Log Out</a>
+        {{/if}}
         <a class="btn" id="btn-black" style="background-color:
           {{#if (equal currentPage 'Contact Us')}}
            orangered

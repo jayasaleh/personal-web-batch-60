@@ -19,4 +19,7 @@
   #testimonialStarButton button {
     padding: 5px 10px;
   }
+  .form-input-register {
+    width: 70%;
+  }
 }

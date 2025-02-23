@@ -1,5 +1,12 @@
 {{#> layout currentPage='Home'}}
     <main class="container mb-3">
+               {{#if messages.success}}
+          <br>
+          <div class="alert alert-success" role="alert">
+            {{messages.success}}
+          </div>
+          {{/if}}
+
       <div class="row mt-5 p-3 rounded-2" id="indexRow">
         <div class="col-8" id="pInformation">
           <h1>Hi Welcome to my hut</h1>
