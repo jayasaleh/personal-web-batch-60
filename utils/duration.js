@@ -16,15 +16,15 @@ function countTimeProjectEnd(end, start) {
         diffInMonth +
         (diffInMonth === 1 ? " Month " : " Months ") +
         leftdays +
-        (leftdays === 1 ? " Day Ago " : " Days Ago ")
+        (leftdays === 1 ? " Day" : " Days ")
       );
     }
-    return diffInMonth + (diffInMonth === 1 ? " Month Ago" : " Months Ago");
+    return diffInMonth + (diffInMonth === 1 ? " Month" : " Months");
   }
 
   let diffInDays = Math.floor(distance / (24 * 60 * 60 * 1000));
   if (diffInDays > 0) {
-    return diffInDays + (diffInDays === 1 ? " day Ago" : " days Ago");
+    return diffInDays + (diffInDays === 1 ? " day " : " days");
   } else {
     return "less than 1 day";
   }

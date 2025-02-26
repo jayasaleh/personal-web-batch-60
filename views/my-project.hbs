@@ -3,12 +3,16 @@
       <h1 class="text-center mt-3">ADD TO MY PROJECT</h1>
       <div class="form-input-my-project">
         <form action="/create-project" method="post" enctype="multipart/form-data">
+              {{#if messages.error}}
+              <div class="alert alert-danger text-center">{{messages.error}}</div>
+              {{/if}}
           <div class="mb-3">
             <label for="projectName" class="form-label">Project Name</label>
             <input name="projectName" id="projectName" type="text" class="form-control" />
           </div>
           <div class="row">
             <div class="col-md-6">
+
               <label for="startDate" class="form-label">Start Date</label>
               <input name="startDate" id="startDate" type="date" class="form-control" />
             </div>
@@ -64,7 +68,7 @@
             >
               <span id="spanChoose">Choose</span>
               <img
-                src="/img/clip.png"
+                src="assets/img/clip.png"
                 alt="clip"
                 style="width: 20px; height: 20px; margin-left: -20px"
               />

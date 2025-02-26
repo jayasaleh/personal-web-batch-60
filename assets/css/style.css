@@ -1,6 +1,8 @@
 body {
   background-color: #e3e7eb !important;
+  font-family: "Poppins", sans-serif !important;
 }
+
 /* index start */
 #indexRow {
   width: 90%;

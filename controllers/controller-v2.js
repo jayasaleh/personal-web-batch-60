@@ -1,7 +1,10 @@
+const fs = require("fs");
+const path = require("path");
 const { Sequelize, where } = require("sequelize");
 const config = require("../config/config.json");
 const { Project, User } = require("../models");
-const sequelize = new Sequelize(config.development);
+require("dotenv").config();
+const sequelize = new Sequelize(config[process.env.NODE_ENV]);
 const bcrypt = require("bcrypt");
 
 async function renderHome(req, res) {
@@ -61,11 +64,7 @@ async function renderDetailProject(req, res) {
       id: id,
     },
   });
-  // if (detailProject.user.id !== detailProject.authorId) {
-  //   res.redirect("/my-project");
-  // // }
-  // console.log("ini id user", detailProject.user.id);
-  // console.log("ini id author", detailProject.authorId);
+  console.log(detailProject);
   if (detailProject === null) {
     res.render("page-404");
   } else {
@@ -102,6 +101,8 @@ async function renderError(req, res) {
   res.render("page-404", { user: user });
 }
 async function updateProject(req, res) {
+  const today = new Date();
+
   const id = req.params.id;
   const {
     projectName,
@@ -113,26 +114,101 @@ async function updateProject(req, res) {
     react,
     typeScript,
   } = req.body;
-  let image = "https://picsum.photos/200/300";
-  const updateResult = await Project.update(
-    {
-      projectName,
-      startDate,
-      endDate,
-      description,
-      technologys: [node, next, react, typeScript],
-      image,
-      updatedAt: sequelize.fn("NOW"),
-    },
-    {
-      where: {
-        id,
-      },
+
+  // Input validation
+  if (!projectName || !startDate || !endDate) {
+    console.log("Validation failed: Missing required fields.");
+    req.flash("error", "Please fill in all required fields.");
+    return res.redirect(`/edit-project/${id}`);
+  }
+
+  console.log("File upload status:", req.file ? req.file : "No file uploaded");
+
+  // Retrieve the existing project by ID
+  const project = await Project.findByPk(id);
+  if (!project) {
+    return res.status(404).send("Project not found");
+  }
+
+  console.log("Current project image:", project.image);
+
+  // Delete old image if a new one is uploaded
+  if (project.image && req.file) {
+    const oldImagePath = path.join(__dirname, "../", project.image);
+    console.log("Old image path:", oldImagePath);
+    if (fs.existsSync(oldImagePath)) {
+      fs.unlink(oldImagePath, (err) => {
+        if (err) {
+          console.error("Failed to delete old image:", err);
+        }
+      });
+    } else {
+      console.warn("Old image file does not exist:", oldImagePath);
     }
+  }
+
+  // New image path from upload
+  const image = req.file ? `uploads/${req.file.filename}` : project.image;
+  console.log("New image path:", image);
+  console.log(
+    "Current project image before update:",
+    project.image ? project.image : "No current image"
   );
-  res.redirect("/my-project");
+
+  try {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Check if dates are valid
+    if (start < today) {
+      req.flash("error", "Start date cannot be in the past.");
+      return res.redirect(`/edit-project/${id}`);
+    }
+
+    if (end < today) {
+      req.flash("error", "End date cannot be in the past.");
+      return res.redirect(`/edit-project/${id}`);
+    }
+
+    if (end < start) {
+      req.flash("error", "End date cannot be less than start date.");
+      return res.redirect(`/edit-project/${id}`);
+    }
+
+    const updateResult = await Project.update(
+      {
+        projectName,
+        startDate,
+        endDate,
+        description,
+        technologys: [node, next, react, typeScript],
+        image,
+        updatedAt: sequelize.fn("NOW"),
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+    console.log("Update result:", updateResult);
+    req.flash("success", "Project updated successfully.");
+    res.redirect("/my-project");
+  } catch (error) {
+    console.error("Error updating project:", error);
+    req.flash("error", "Failed to update project. Please try again.");
+    res.redirect(`/edit-project/${id}`);
+  }
 }
+
 async function createProject(req, res) {
+  const today = new Date();
+
+  const user = req.session.user;
+  if (!user) {
+    req.flash("error", "Please Log In");
+    return res.redirect("/login");
+  }
   const {
     projectName,
     startDate,
@@ -143,9 +219,30 @@ async function createProject(req, res) {
     react,
     typeScript,
   } = req.body;
-  let image = "https://picsum.photos/200/300";
+  const image = req.file.path;
+  console.log("image yg di upload", image);
+
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  // Check if dates are valid
+  if (start < today) {
+    req.flash("error", "Start date cannot be in the past.");
+    return res.redirect("/create-project");
+  }
+
+  if (end < today) {
+    req.flash("error", "End date cannot be in the past.");
+    return res.redirect("/create-project");
+  }
+
+  if (end < start) {
+    req.flash("error", "End date cannot be less than start date.");
+    return res.redirect("/create-project");
+  }
 
   const addProject = {
+    authorId: user.id,
     projectName, // ini sama dengan menuliskan projectName: ProjectName,
     startDate,
     endDate,
@@ -155,8 +252,10 @@ async function createProject(req, res) {
   };
   const result = await Project.create(addProject);
   // console.log("ini hasilnya create project", result);
+  req.flash("success", "Project deleted successfully.");
   res.redirect("/my-project");
 }
+
 async function deleteProject(req, res) {
   const id = req.params.id;
   const deleteResult = await Project.destroy({

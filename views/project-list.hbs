@@ -1,13 +1,21 @@
 {{#> layout currentPage='Project List'}}
  
   <div class="container mt-4">
+
   <h1 class="text-center">My Project List</h1>
+
+            {{#if messages.success}}
+      <div class="alert alert-success text-center" role="alert">
+        {{messages.success}}
+      </div>
+      {{/if}}
   <div class="text-end">
     {{#if user}}
     <a class="btn text-end" id="btn-black" href="/create-project">Create Project</a> 
     {{/if}}
   </div>
     <div class="row row-cols-1 row-cols-md-3 mb-3 mt-3 p-2 g-4" id="contentProject" style="background-color: #f3f3f3;">
+      
       {{#each blogProject }}
       
       <div class="col mb-2">
@@ -24,17 +32,39 @@
             <p class="card-text">{{this.description}}</p>
 
             <div class="iconTech">
-              <img src="/img/node.png" alt="icon" style="display:{{techValue (getIndex this.technologys 0)}}; "/>
-              <img src="/img/next.png" alt="icon" style="display:{{techValue (getIndex this.technologys 1)}}; "/>
-              <img src="/img/react.png" alt="icon" style=" display:{{techValue (getIndex this.technologys 2)}}; "/>
-              <img src="/img/type.png" alt="icon" style="display:{{techValue (getIndex this.technologys 3)}}; "/>
+              <img src="/assets/img/node.png" alt="icon" style="display:{{techValue (getIndex this.technologys 0)}}; "/>
+              <img src="/assets/img/next.png" alt="icon" style="display:{{techValue (getIndex this.technologys 1)}}; "/>
+              <img src="/assets/img/react.png" alt="icon" style=" display:{{techValue (getIndex this.technologys 2)}}; "/>
+              <img src="/assets/img/type.png" alt="icon" style="display:{{techValue (getIndex this.technologys 3)}}; "/>
             </div>
             <p style="font-size: 10px; text-align:end;"><i>last edited: {{formatDate this.updatedAt}} </i></p>
             {{#if (equal ../user.id this.authorId)}}
               <a href="/edit-project/{{this.id}}" class="btn btn-primary" style="width: 45%;">edit</a href="/edit-project/{{@index}}">
-              <form action="/my-project/{{this.id}}?_method=DELETE" method="post" style=" display: inline; ">
-               <button onclick="return confirm('Are you sure want to delete')" class="btn btn-danger" type="submit" style="width: 50%;">delete</button>
-              </form>
+<!-- Tombol Delete -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" style="width: 50%;">
+  Delete
+</button>
+
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete this?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form action="/my-project/{{this.id}}?_method=DELETE" method="post" style="display: inline;">
+          <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
             {{/if}}
           </div>
         </div>
@@ -42,4 +72,5 @@
       
       {{/each}}
     </div>
+
 {{/layout}}

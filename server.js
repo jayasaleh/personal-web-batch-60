@@ -4,8 +4,11 @@ const hbs = require("hbs");
 const path = require("path");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
-const session = require("express-session");
 
+const session = require("express-session");
+const upload = require("./middlewares/upload-file");
+const checkUser = require("./middlewares/auth");
+require("dotenv").config();
 const {
   countTimeProjectEnd,
   techValue,
@@ -32,14 +35,15 @@ const {
   createProject,
   updateProject,
 } = require("./controllers/controller-v2");
-const port = 3000;
+const port = process.env.PORT || 3000;
 //set penggunaan value dari input
 // supaya bisa menghandle data yang dikirimkan dari form
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // menjadikan folder 'assets sebagai penyedia file statis'
-app.use(express.static("assets"));
+app.use("/assets", express.static(path.join(__dirname, "./assets")));
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 app.use(flash());
 app.use(
   session({
@@ -79,9 +83,9 @@ app.get("/logout", authLogout);
 //routing project list
 app.get("/my-project", renderProject);
 //routing create project
-app.get("/create-project", renderCreateProject);
+app.get("/create-project", checkUser, renderCreateProject);
 //routing detail project
-app.get("/detail-project/:id", renderDetailProject);
+app.get("/detail-project/:id", checkUser, renderDetailProject);
 //routing contact
 app.get("/contact-me", renderContactMe);
 //routing testimonial
@@ -90,8 +94,13 @@ app.get("/testimonials", renderTestimonials);
 app.get("/edit-project/:id", renderEditProject);
 app.get("*", renderError);
 //submit create project
-app.post("/create-project", createProject);
-app.patch("/edit-project/:id", updateProject);
+app.post("/create-project", checkUser, upload.single("image"), createProject);
+app.patch(
+  "/edit-project/:id",
+  checkUser,
+  upload.single("image"),
+  updateProject
+);
 app.delete("/my-project/:id", deleteProject);
 app.listen(port, () => {
   console.log(`My personal app listening on port ${port}`);

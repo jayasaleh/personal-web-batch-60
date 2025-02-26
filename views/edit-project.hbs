@@ -2,7 +2,14 @@
     <div class="container">
       <h1 class="text-center mt-3">EDIT TO MY PROJECT</h1>
       <div class="form-input-my-project">
-        <form action="/edit-project/{{blogProject.id}}?_method=PATCH" method="post">
+        <form action="/edit-project/{{blogProject.id}}?_method=PATCH" method="post" enctype="multipart/form-data">
+          {{#if messages.error}}
+            <div class="alert alert-danger" role="alert">
+              {{messages.error}}
+            </div>
+          {{/if}}
+
+
           <div class="mb-3">
           
             <label for="projectName" class="form-label">Project Name</label>
@@ -80,7 +87,7 @@
             >
               <span id="spanChoose">Choose</span>
               <img
-                src="/img/clip.png"
+                src="/assets/img/clip.png"
                 alt="clip"
                 style="width: 20px; height: 20px; margin-left: -20px"
               />
@@ -126,5 +133,5 @@
         </div>
       </div> -->
     </div>
-    <script src="/js/my-project.js"></script>
+    <script src="assets/js/my-project.js"></script>
 {{/layout}}
