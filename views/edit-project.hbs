@@ -13,16 +13,16 @@
           <div class="mb-3">
           
             <label for="projectName" class="form-label">Project Name</label>
-            <input name="projectName" id="projectName" type="text" class="form-control" value="{{blogProject.projectName}}" />
+            <input name="projectName" id="projectName" type="text" class="form-control" value="{{blogProject.projectName}}" required/>
           </div>
           <div class="row">
             <div class="col-md-6">
               <label for="startDate" class="form-label">Start Date</label>
-              <input name="startDate" id="startDate" type="date" class="form-control" value="{{formatDateStartEnd blogProject.startDate}}" /> 
+              <input name="startDate" id="startDate" type="date" class="form-control" value="{{formatDateStartEnd blogProject.startDate}}" required/> 
             </div>
             <div class="col-md-6">
               <label for="endDate" class="form-label">End Date</label>
-              <input name="endDate" id="endDate" type="date" class="form-control" value="{{formatDateStartEnd blogProject.endDate}}" />
+              <input name="endDate" id="endDate" type="date" class="form-control" value="{{formatDateStartEnd blogProject.endDate}}" required/>
             </div>
           </div>
           <div class="mt-3">
@@ -33,7 +33,7 @@
               class="form-control"
               placeholder="Leave a comment here"
               rows="3"
-            >{{blogProject.description}}</textarea>
+            required>{{blogProject.description}}</textarea>
           </div>
           <br />
           <label

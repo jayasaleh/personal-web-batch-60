@@ -3,7 +3,9 @@
   <div class="container mt-4">
 
   <h1 class="text-center">My Project List</h1>
-
+{{#if messages.error}}
+<div class="alert alert-danger text-center" role="alert">{{messages.error}}</div>
+{{/if}}
             {{#if messages.success}}
       <div class="alert alert-success text-center" role="alert">
         {{messages.success}}
@@ -20,7 +22,7 @@
       
       <div class="col mb-2">
         <div class="card h-100">
-          <img src="{{this.image}}" class="card-img-top" alt="Image" />
+          <img src="{{this.image}}" class="card-img-top" alt="Image" style="width:100%; height:200px"/>
           <div class="card-body">
             <a href="/detail-project/{{this.id}}" style="text-decoration:none;">
               <h5 class="card-title">{{this.projectName}}</h5>
@@ -29,7 +31,7 @@
             </p>
             <span style="font-size: 14px;">Project From: {{this.user.name}}</span>
             <p style="font-size: 13px;"><i>Duration: {{countTimeProjectEnd this.endDate this.startDate}}</p></i>
-            <p class="card-text">{{this.description}}</p>
+            <p class="card-text" style="font-size: 13px; height:43px; overflow:hidden;" >{{this.description}}</p>
 
             <div class="iconTech">
               <img src="/assets/img/node.png" alt="icon" style="display:{{techValue (getIndex this.technologys 0)}}; "/>
@@ -38,34 +40,34 @@
               <img src="/assets/img/type.png" alt="icon" style="display:{{techValue (getIndex this.technologys 3)}}; "/>
             </div>
             <p style="font-size: 10px; text-align:end;"><i>last edited: {{formatDate this.updatedAt}} </i></p>
-            {{#if (equal ../user.id this.authorId)}}
+        {{#if (equal ../user.id this.authorId)}}
               <a href="/edit-project/{{this.id}}" class="btn btn-primary" style="width: 45%;">edit</a href="/edit-project/{{@index}}">
-<!-- Tombol Delete -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" style="width: 50%;">
-  Delete
-</button>
+              <!-- Tombol Delete -->
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{this.id}}" style="width: 50%;">
+                Delete
+              </button>
 
-<!-- Modal Konfirmasi Hapus -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure want to delete this?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form action="/my-project/{{this.id}}?_method=DELETE" method="post" style="display: inline;">
-          <button class="btn btn-danger" type="submit">Delete</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-            {{/if}}
+            <!-- Modal Konfirmasi Hapus -->
+            <div class="modal fade" id="deleteModal{{this.id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure want to delete this?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="/my-project/{{this.id}}?_method=DELETE" method="post" style="display: inline;">
+                      <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {{/if}}
           </div>
         </div>
       </div>

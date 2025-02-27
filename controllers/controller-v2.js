@@ -82,6 +82,15 @@ async function renderEditProject(req, res) {
   if (!user) {
     return res.redirect("/login");
   }
+  if (!editProject) {
+    return res.render("page-404");
+  }
+
+  // Check if the logged-in user is the author of the project
+  if (editProject.authorId !== user.id) {
+    req.flash("error", "You do not have permission to edit this project.");
+    return res.redirect("/my-project");
+  }
   if (editProject === null) {
     res.render("page-404");
   } else {
@@ -114,15 +123,6 @@ async function updateProject(req, res) {
     react,
     typeScript,
   } = req.body;
-
-  // Input validation
-  if (!projectName || !startDate || !endDate) {
-    console.log("Validation failed: Missing required fields.");
-    req.flash("error", "Please fill in all required fields.");
-    return res.redirect(`/edit-project/${id}`);
-  }
-
-  console.log("File upload status:", req.file ? req.file : "No file uploaded");
 
   // Retrieve the existing project by ID
   const project = await Project.findByPk(id);
@@ -158,6 +158,7 @@ async function updateProject(req, res) {
   try {
     const start = new Date(startDate);
     const end = new Date(endDate);
+    today.setHours(0, 0, 0, 0); // Mengatur waktu menjadi 00:00:00
 
     // Check if dates are valid
     if (start < today) {
@@ -224,6 +225,7 @@ async function createProject(req, res) {
 
   const start = new Date(startDate);
   const end = new Date(endDate);
+  today.setHours(0, 0, 0, 0); // Mengatur waktu menjadi 00:00:00
 
   // Check if dates are valid
   if (start < today) {
@@ -252,18 +254,37 @@ async function createProject(req, res) {
   };
   const result = await Project.create(addProject);
   // console.log("ini hasilnya create project", result);
-  req.flash("success", "Project deleted successfully.");
+  req.flash("success", "Project created successfully.");
   res.redirect("/my-project");
 }
 
 async function deleteProject(req, res) {
   const id = req.params.id;
+  const project = await Project.findByPk(id);
+  if (!project) {
+    return res.status(404).send("Project not found");
+  }
+
+  // Delete old image
+  if (project.image) {
+    const oldImagePath = path.join(__dirname, "../", project.image);
+    console.log("Old image path:", oldImagePath);
+    if (fs.existsSync(oldImagePath)) {
+      fs.unlink(oldImagePath, (err) => {
+        if (err) {
+          console.error("Failed to delete old image:", err);
+        }
+      });
+    } else {
+      console.warn("Old image file does not exist:", oldImagePath);
+    }
+  }
   const deleteResult = await Project.destroy({
     where: {
       id: id, // id project yang dipilih
     },
   });
-  console.log("result delete", deleteResult);
+  req.flash("error", "Project deleted succesfully");
   res.redirect("/my-project");
 }
 async function authLogin(req, res) {
@@ -276,18 +297,18 @@ async function authLogin(req, res) {
     },
   });
   if (!user) {
-    req.flash("error", "User tidak ditemukan");
+    req.flash("error", "User not found");
     return res.redirect("/login");
   }
   const isValidated = await bcrypt.compare(password, user.password);
   if (!isValidated) {
-    req.flash("error", "Password Salah");
+    req.flash("error", "Wrong password");
     return res.redirect("/login");
   }
   let loggedInUser = user.toJSON();
   delete loggedInUser.password;
   req.session.user = loggedInUser;
-  req.flash("success", `Berhasil Log In ${user.name}`);
+  req.flash("success", `Succesfuly Logged In as ${user.name}`);
   res.redirect("/");
 }
 
@@ -316,12 +337,12 @@ async function authRegister(req, res) {
     },
   });
   if (user) {
-    req.flash("error", "Email sudah digunakan oleh akun lainnya");
+    req.flash("error", "The email is already in use by another account");
     return res.redirect("/register");
   }
   // cek apakah password sudah sama
   if (password !== confirmPassword) {
-    req.flash("error", "Passwordnya tidak sama");
+    req.flash("error", "The password does not match");
     return res.redirect("/register");
   }
   const saltRounds = 10;
@@ -335,7 +356,7 @@ async function authRegister(req, res) {
   };
 
   const userInsert = await User.create(newUser);
-  req.flash("success", "Berhasil mendaftar silakan login");
+  req.flash("success", "Registration successful, please log in");
   res.redirect("/login");
 }
 module.exports = {
