@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { Sequelize, where } = require("sequelize");
-const config = require("../config/config.json");
+const config = require("../config/config.js");
 const { Project, User } = require("../models");
 require("dotenv").config();
 const sequelize = new Sequelize(config[process.env.NODE_ENV]);
